@@ -96,6 +96,8 @@ def ocr_function(pdf, dpi, url, api_key, model):
                         "2. Do not add your own comments, introductions, or explanations. Output ONLY the extracted text.\n"
                         "3. Do not enclose the output in Markdown code blocks (```). Return pure, raw Markdown text.\n"
                         "4. If the image is completely empty or contains no text, output ONLY this exact string: <!-- Page Empty -->\n\n"
+                        "5. When encountering mathematical equations, formulas, or symbols, you MUST format them strictly using LaTeX. Use `$` for inline math and `$$` for display/block equations.\n"
+                        "6. When encountering URLs or web links, you MUST format them as clickable HTML tags (e.g., `<a href=\"URL\">URL</a>`).\n\n"
                         "**MARKDOWN FORMATTING:**\n"
                         "Use standard Markdown tools (bold, italics, tables, lists, `#` headers) exclusively "
                         "to visually and structurally replicate the original document as closely as possible."
