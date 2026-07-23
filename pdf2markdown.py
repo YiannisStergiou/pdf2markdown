@@ -290,6 +290,7 @@ if __name__ == "__main__":
 
     banner_block = text2art("PDF  2  MD ")
     print(banner_block)
+    print("© 2026 Ioannis Stergiou | Licensed under MIT\n")
 
     # Scans for all pdf in the folder
     pdf_files_list = list(Path(".").glob("*.pdf"))
