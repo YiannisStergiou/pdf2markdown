@@ -1,63 +1,75 @@
 # PDF 2 Markdown (Vision LLM OCR)
 
-A Python CLI utility that converts PDF documents into clean Markdown (`.md`) files using Vision Large Language Models. 
+![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![LLM Supported](https://img.shields.io/badge/LLM-Gemini%20%7C%20Local%20Models-orange)
 
-I initially wrote this script to solve a personal problem: I needed a reliable way to extract text from Greek university notes (which are full of complex math/physics equations and weird formatting) and some scanned real estate documents. Standard OCR tools usually mess up the structure, so I decided to use Vision models (like Gemini Flash or local models) to do the heavy lifting and output pure, structured Markdown.
+A powerful, interactive Python CLI utility that converts complex PDF documents into clean, structured Markdown (`.md`) files using Vision Large Language Models.
 
-## Features
-* **Interactive CLI:** Simple terminal menu with ASCII art to pick files and set DPI.
-* **Multi-API Support:** Works out-of-the-box with Google's Gemini API, but also supports local, offline models via [LM Studio](https://lmstudio.ai/).
-* **High Accuracy:** Uses a strict system prompt to prevent the model from hallucinating or translating the text (flawlessly handles Greek and complex LaTeX math).
-* **Base64 Pipeline:** Converts PDF pages to Grayscale PNGs internally via `PyMuPDF` to save token payload size before sending them to the Vision API.
+Unlike standard OCR tools that destroy formatting, **PDF 2 Markdown** uses Vision AI to extract pure text while flawlessly preserving its original structure, making it the perfect first step for **Retrieval-Augmented Generation (RAG)** systems.
 
-## 🚀 Quick Start (Windows Only - No Python Required)
+*(Insert a GIF or a side-by-side screenshot here showing a complex PDF page and the generated Markdown)*
 
-If you just want to use the tool without setting up a Python environment or installing dependencies, you can use the standalone executable:
+## Why this tool?
+I initially built this script to solve a strict data-extraction problem: reliably parsing Greek university notes packed with complex physics/math equations, and scanning structured real estate documents. 
 
-1. Download the `pdf2markdown.exe` file from this repository.
-2. Place it in the same folder as the PDF files you want to convert.
-3. Double-click the `.exe` to run it!
-*(Note: If you choose a Google model, the terminal will ask you to paste your API key the first time).*
+*   **RAG-Ready Output:** The system prompt is heavily fine-tuned to return pure, raw Markdown without AI hallucinations, conversational filler, or Markdown code blocks (` ``` `).
+*   **LaTeX Math Support:** Automatically detects formulas and formats them strictly using LaTeX (`$` for inline, `$$` for blocks).
+*   **Local & Cloud AI:** Works out-of-the-box with Google's Gemini API (Flash/Pro), but seamlessly integrates with local, offline models via [LM Studio](https://lmstudio.ai/).
+*   **Optimized Pipeline:** Uses `PyMuPDF` to convert pages to Grayscale PNGs and Base64 strings internally, drastically reducing token payload size.
 
----
+## 🚀 Quick Start (No Python Required)
+For Windows users who want a plug-and-play experience without installing dependencies:
 
-## 👨‍💻 Developer Setup (Cross-Platform)
+1. Head over to the [Releases](../../releases) page and download `pdf2markdown.exe`.
+2. Place the executable in the same folder as your `.pdf` files.
+3. Double-click to run! 
+*(Note: If using Google models, you will be prompted to paste your API key on the first run).*
+
+## Developer Setup
 
 ### Prerequisites
-If you prefer to run the Python script directly, you'll need Python 3.8+ and a few dependencies. 
-*(Note: Make sure to install `pymupdf` and not the outdated `fitz` package from pip).*
+Make sure you have Python 3.8+ installed.
 
 ```bash
+# Clone the repository
+git clone https://github.com/yiannisstergiou/pdf-2-markdown.git
+cd pdf-2-markdown
+
+# Install the required dependencies
 pip install pymupdf openai python-dotenv art
 
 ```
 
-### Usage
+### Configuration & Usage
 
-1. Clone the repo and navigate to the folder.
-2. **Set up your API Key:** Create a `.env` file in the root directory and add your Google Gemini API key:
+1. **Set up your API Key:** Create a `.env` file in the root directory and add your Google Gemini API key:
+
 ```text
 Google_API_KEY="your_api_key_here"
 
 ```
 
+2. **Run the script:**
 
-3. Run the script:
 ```bash
 python pdf2markdown.py
 
 ```
 
+3. Follow the interactive ASCII terminal prompts to select your API (Local or Google), choose a model, pick your PDF, and define the extraction DPI.
 
-4. Follow the terminal prompts to select your API, model, PDF file, and DPI.
+## File Structure
 
-## 📂 File Structure
+* `pdf2markdown.py`: The main conversion engine and CLI logic.
+* `1.pdf` & `1.md`: Example inputs/outputs showcasing mathematical extraction.
+* `.env`: Your environment variables (ignored in git).
 
-* `pdf2markdown.exe`: The standalone Windows executable (Ready to use).
-* `pdf2markdown.py`: The main script containing the conversion logic and CLI.
-* `1.pdf` & `1.md`: Example input/output demonstrating the extraction of probability math equations in Greek.
-* `.env`: (Ignored in git) Your environment variables file.
+## Roadmap / Future Improvements
 
-## 🚧 Future Improvements / TODOs
+* [ ] **Asynchronous Processing:** Currently, pages are processed sequentially. The next major update will utilize `asyncio` to send multiple pages concurrently to the API, drastically speeding up conversion times for large documents.
+* [ ] GUI implementation for non-terminal users.
 
-Right now, the script is a synchronous blocker—it processes pages one by one in a `for` loop. For a 30-page PDF, this means waiting for 30 sequential API calls. My next goal is to refactor the `ocr_function` using `asyncio` to send multiple pages to the API concurrently, significantly speeding up the conversion time.
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](https://www.google.com/search?q=LICENSE) file for details.
