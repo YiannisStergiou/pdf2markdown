@@ -62,7 +62,7 @@ python pdf2markdown.py
 ## File Structure
 
 * `pdf2markdown.py`: The main conversion engine and CLI logic.
-* `1.pdf` & `1.md`: Example inputs/outputs showcasing mathematical extraction.
+* [[TEST.pdf]] & [[TEST]]:<br>Example inputs/outputs showcasing mathematical extraction.
 * `.env`: Your environment variables (ignored in git).
 
 ## Roadmap / Future Improvements
